@@ -112,16 +112,28 @@ function drawFlyer() {
     ctx.beginPath(); ctx.arc(543,618,179,0,Math.PI*2);
     ctx.strokeStyle="#fff"; ctx.lineWidth=3; ctx.stroke();
   }
-  // Clear the old participant name and redraw a centred name between the gold rules.
+  // Clear the participant identity area, then draw the name and fixed-size designation badge.
   ctx.fillStyle="#fff8f8";
-  ctx.fillRect(300,780,490,95);
+  ctx.fillRect(300,780,490,112);
   ctx.strokeStyle="#d69a37"; ctx.lineWidth=3;
-  ctx.beginPath(); ctx.moveTo(190,831); ctx.lineTo(330,831); ctx.moveTo(756,831); ctx.lineTo(896,831); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(190,813); ctx.lineTo(330,813); ctx.moveTo(756,813); ctx.lineTo(896,813); ctx.stroke();
   const name = (nameInput.value || "YOUR NAME").trim().slice(0,45);
   let fs = 58;
   ctx.textAlign="center"; ctx.textBaseline="middle"; ctx.fillStyle="#5b0f35";
   do { ctx.font=`bold ${fs}px Georgia,serif`; if(ctx.measureText(name).width<=430) break; fs-=2; } while(fs>28);
-  ctx.fillText(name,543,831);
+  ctx.fillText(name,543,813);
+
+  // Reverse-colour designation: larger bold white lettering; badge dimensions stay fixed.
+  const badgeX=428, badgeY=850, badgeW=230, badgeH=42;
+  ctx.fillStyle="#970744";
+  ctx.strokeStyle="#d69a37"; ctx.lineWidth=2;
+  ctx.beginPath();
+  ctx.roundRect(badgeX,badgeY,badgeW,badgeH,18);
+  ctx.fill(); ctx.stroke();
+  ctx.font="900 27px Arial,sans-serif";
+  ctx.fillStyle="#ffffff";
+  ctx.textAlign="center"; ctx.textBaseline="middle";
+  ctx.fillText("DELEGATE",badgeX+badgeW/2,badgeY+badgeH/2);
   // Replace bottom decorative lotus with a small QR badge integrated into the flyer background.
   ctx.fillStyle="#fff8f8";
   ctx.fillRect(830,1270,150,160);
